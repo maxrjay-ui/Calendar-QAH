@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="refresh" content="300" />
+  <title>QAH Digital Notice Board - HTML Link Test</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: #0f1f33;
+      --accent: #00a3a1;
+      --accent2: #7ac943;
+      --text: #ffffff;
+      --muted: #cbd5e1;
+      --warning: #facc15;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at top left, #12385a 0%, var(--bg) 45%, #020617 100%);
+      color: var(--text);
+      overflow: hidden;
+    }
+    .screen {
+      height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 42px;
+      gap: 28px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid rgba(255,255,255,0.15);
+      padding-bottom: 22px;
+    }
+    .brand {
+      font-size: 30px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .status-pill {
+      background: rgba(122,201,67,0.18);
+      border: 2px solid var(--accent2);
+      color: #dcfce7;
+      border-radius: 999px;
+      padding: 12px 22px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .main {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+    .card {
+      background: rgba(15,31,51,0.88);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+    h1 {
+      font-size: 68px;
+      line-height: 1.02;
+      margin: 0 0 22px;
+    }
+    h2 {
+      font-size: 34px;
+      margin: 0 0 20px;
+      color: #e2e8f0;
+    }
+    p, li {
+      font-size: 25px;
+      line-height: 1.42;
+      color: var(--muted);
+    }
+    .ok {
+      color: #bbf7d0;
+      font-weight: 800;
+    }
+    .test-box {
+      margin-top: 28px;
+      display: grid;
+      gap: 14px;
+    }
+    .test-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 16px 18px;
+      font-size: 24px;
+    }
+    .label { color: var(--muted); }
+    .value { font-weight: 800; }
+    .touch {
+      background: linear-gradient(135deg, rgba(0,163,161,0.24), rgba(122,201,67,0.18));
+      border: 2px dashed rgba(255,255,255,0.35);
+      border-radius: 24px;
+      padding: 26px;
+      margin-top: 24px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: 800;
+    }
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #94a3b8;
+      font-size: 22px;
+    }
+    .small { font-size: 20px; color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <div class="header">
+      <div class="brand">EQUANS | QAH Digital Notice Board</div>
+      <div class="status-pill">HTML TEST PAGE</div>
+    </div>
+
+    <div class="main">
+      <section class="card">
+        <h1>Static HTML publish test</h1>
+        <p class="ok">If this page appears inside Bouygues Studio / OnSignage, the HTML hosting/link test has passed.</p>
+        <p>This page is intentionally simple. The next step will be replacing this static content with Power Automate generated notice board content from SharePoint.</p>
+
+        <div class="test-box">
+          <div class="test-row"><span class="label">Test:</span><span class="value">External HTML link</span></div>
+          <div class="test-row"><span class="label">Refresh:</span><span class="value">Every 5 minutes</span></div>
+          <div class="test-row"><span class="label">Touchscreen:</span><span class="value">Ready for form link/QR later</span></div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <h2>What to check</h2>
+        <ul>
+          <li>Does the page load without Microsoft sign-in?</li>
+          <li>Does the page render in the OnSignage/Bouygues Studio player?</li>
+          <li>Does the page refresh after publishing changes?</li>
+          <li>Does the touchscreen allow button/form interaction later?</li>
+        </ul>
+        <div class="touch">Touchscreen booking form can go here later</div>
+      </aside>
+    </div>
+
+    <div class="footer">
+      <div>QAH FM Notices | Proof of Concept</div>
+      <div id="clock">Loading time...</div>
+    </div>
+  </div>
+
+  <script>
+    function tick() {
+      const now = new Date();
+      document.getElementById('clock').textContent = 'Loaded: ' + now.toLocaleString('en-GB', {
+        weekday: 'short', day: '2-digit', month: 'short', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+    }
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>
