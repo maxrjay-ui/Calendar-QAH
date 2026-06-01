@@ -1,175 +1,1302 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="refresh" content="300" />
-  <title>QAH Digital Notice Board - HTML Link Test</title>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="300">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QAH Digital Notice Board</title>
+
   <style>
-    :root {
-      --bg: #07111f;
-      --panel: #0f1f33;
-      --accent: #00a3a1;
-      --accent2: #7ac943;
-      --text: #ffffff;
-      --muted: #cbd5e1;
-      --warning: #facc15;
-    }
-    * { box-sizing: border-box; }
     html, body {
       margin: 0;
-      width: 100%;
       height: 100%;
       font-family: "Segoe UI", Arial, sans-serif;
-      background: radial-gradient(circle at top left, #12385a 0%, var(--bg) 45%, #020617 100%);
-      color: var(--text);
+      background: #07111f;
+      color: #ffffff;
       overflow: hidden;
     }
+
     .screen {
       height: 100vh;
+      padding: 36px;
+      box-sizing: border-box;
+      background: radial-gradient(circle at top left, #12385a 0%, #07111f 48%, #020617 100%);
       display: grid;
       grid-template-rows: auto 1fr auto;
-      padding: 42px;
-      gap: 28px;
+      gap: 24px;
     }
+
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 3px solid rgba(255,255,255,0.15);
-      padding-bottom: 22px;
+      padding-bottom: 18px;
     }
+
     .brand {
-      font-size: 30px;
+      font-size: 28px;
       letter-spacing: 0.08em;
+      color: #cbd5e1;
       text-transform: uppercase;
-      color: var(--muted);
     }
-    .status-pill {
-      background: rgba(122,201,67,0.18);
-      border: 2px solid var(--accent2);
-      color: #dcfce7;
+
+    h1 {
+      margin: 0;
+      font-size: 54px;
+      line-height: 1;
+    }
+
+    .badge {
+      background: rgba(0,163,161,0.2);
+      border: 2px solid #00a3a1;
+      color: #dff;
       border-radius: 999px;
-      padding: 12px 22px;
+      padding: 10px 20px;
       font-size: 22px;
       font-weight: 700;
     }
-    .main {
+
+    .content {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 28px;
-      align-items: stretch;
+      grid-template-columns: 1fr 360px;
+      gap: 24px;
+      min-height: 0;
     }
-    .card {
-      background: rgba(15,31,51,0.88);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 28px;
-      padding: 34px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-    }
-    h1 {
-      font-size: 68px;
-      line-height: 1.02;
-      margin: 0 0 22px;
-    }
-    h2 {
-      font-size: 34px;
-      margin: 0 0 20px;
-      color: #e2e8f0;
-    }
-    p, li {
-      font-size: 25px;
-      line-height: 1.42;
-      color: var(--muted);
-    }
-    .ok {
-      color: #bbf7d0;
-      font-weight: 800;
-    }
-    .test-box {
-      margin-top: 28px;
+
+    .events {
+      overflow: hidden;
       display: grid;
       gap: 14px;
+      align-content: start;
     }
-    .test-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 16px;
-      padding: 16px 18px;
-      font-size: 24px;
+
+    .event {
+      background: rgba(15,31,51,0.92);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-left: 8px solid #00a3a1;
+      border-radius: 20px;
+      padding: 18px 22px;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.22);
     }
-    .label { color: var(--muted); }
-    .value { font-weight: 800; }
-    .touch {
-      background: linear-gradient(135deg, rgba(0,163,161,0.24), rgba(122,201,67,0.18));
-      border: 2px dashed rgba(255,255,255,0.35);
-      border-radius: 24px;
-      padding: 26px;
-      margin-top: 24px;
-      text-align: center;
-      font-size: 28px;
-      font-weight: 800;
-    }
-    .footer {
+
+    .event-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: #94a3b8;
-      font-size: 22px;
+      margin-bottom: 8px;
+      gap: 16px;
     }
-    .small { font-size: 20px; color: #94a3b8; }
+
+    .category {
+      background: #22c55e;
+      color: #052e16;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .time {
+      color: #cbd5e1;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.12;
+      margin-bottom: 6px;
+    }
+
+    .meta {
+      font-size: 21px;
+      color: #cbd5e1;
+    }
+
+    .notes {
+      font-size: 19px;
+      color: #94a3b8;
+      margin-top: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .side {
+      background: rgba(15,31,51,0.88);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 24px;
+      display: grid;
+      align-content: start;
+      gap: 18px;
+    }
+
+    .side h2 {
+      font-size: 32px;
+      margin: 0;
+    }
+
+    .side p {
+      font-size: 22px;
+      color: #cbd5e1;
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    .button {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      color: #ffffff;
+      background: #00a3a1;
+      border-radius: 18px;
+      padding: 20px;
+      font-size: 26px;
+      font-weight: 900;
+      margin-top: 10px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      color: #94a3b8;
+      font-size: 20px;
+    }
   </style>
 </head>
+
 <body>
   <div class="screen">
     <div class="header">
-      <div class="brand">EQUANS | QAH Digital Notice Board</div>
-      <div class="status-pill">HTML TEST PAGE</div>
+      <div>
+        <div class="brand">EQUANS | Queen Alexandra Hospital</div>
+        <h1>Digital Notice Board</h1>
+      </div>
+      <div class="badge">Live Notices</div>
     </div>
 
-    <div class="main">
-      <section class="card">
-        <h1>Static HTML publish test</h1>
-        <p class="ok">If this page appears inside Bouygues Studio / OnSignage, the HTML hosting/link test has passed.</p>
-        <p>This page is intentionally simple. The next step will be replacing this static content with Power Automate generated notice board content from SharePoint.</p>
+    <div class="content">
+      <main class="events">
+        <div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Mon 01 Jun 17:00</span>
+  </div>
+  <div class="title">SB</div>
+  <div class="meta">
+    QAH 
+    • Ends 18:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Mon 01 Jun 18:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 19:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 02 Jun 06:30</span>
+  </div>
+  <div class="title">Induction - HH - 5811</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 02 Jun 11:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 12:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 02 Jun 12:00</span>
+  </div>
+  <div class="title">Meeting - CBG</div>
+  <div class="meta">
+    QAH 
+    • Ends 13:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 02 Jun 13:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 14:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 03 Jun 07:00</span>
+  </div>
+  <div class="title">Water team - MM</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 03 Jun 08:00</span>
+  </div>
+  <div class="title">Soft FM - Recruitment - JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 09:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 03 Jun 09:00</span>
+  </div>
+  <div class="title">ESWGRN</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 03 Jun 10:00</span>
+  </div>
+  <div class="title">JA IY</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 03 Jun 11:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 12:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Thu 04 Jun 08:00</span>
+  </div>
+  <div class="title">PSTL - Meeting - HH</div>
+  <div class="meta">
+    QAH 
+    • Ends 09:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Fri 05 Jun 07:00</span>
+  </div>
+  <div class="title">Water Team</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Sat 06 Jun 08:00</span>
+  </div>
+  <div class="title">Food - Training</div>
+  <div class="meta">
+    QAH 
+    • Ends 09:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Sat 06 Jun 08:00</span>
+  </div>
+  <div class="title">Training</div>
+  <div class="meta">
+    QAH 
+    • Ends 15:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Sat 06 Jun 14:00</span>
+  </div>
+  <div class="title">HH</div>
+  <div class="meta">
+    QAH 
+    • Ends 15:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Sun 07 Jun 23:00</span>
+  </div>
+  <div class="title">Booking</div>
+  <div class="meta">
+    QAH 
+    • Ends 22:59
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Mon 08 Jun 07:15</span>
+  </div>
+  <div class="title">New - Starters - CW</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:45
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Mon 08 Jun 10:00</span>
+  </div>
+  <div class="title">Stuart - Burnham</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Mon 08 Jun 17:00</span>
+  </div>
+  <div class="title">SB</div>
+  <div class="meta">
+    QAH 
+    • Ends 18:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Mon 08 Jun 18:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 19:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 09 Jun 06:30</span>
+  </div>
+  <div class="title">Induction - HH - 5811</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 09 Jun 11:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 12:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 09 Jun 12:00</span>
+  </div>
+  <div class="title">Meeting - CBG</div>
+  <div class="meta">
+    QAH 
+    • Ends 13:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 09 Jun 13:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 14:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 10 Jun 07:00</span>
+  </div>
+  <div class="title">Water team - MM</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 10 Jun 09:00</span>
+  </div>
+  <div class="title">ESWGRN</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 10 Jun 10:00</span>
+  </div>
+  <div class="title">JA IY</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 10 Jun 11:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 12:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Thu 11 Jun 08:00</span>
+  </div>
+  <div class="title">PSTL - Meeting - HH</div>
+  <div class="meta">
+    QAH 
+    • Ends 09:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Fri 12 Jun 07:00</span>
+  </div>
+  <div class="title">Water Team</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Sun 14 Jun 23:00</span>
+  </div>
+  <div class="title">Booking</div>
+  <div class="meta">
+    QAH 
+    • Ends 22:59
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Mon 15 Jun 09:00</span>
+  </div>
+  <div class="title">Stuart - Burnham</div>
+  <div class="meta">
+    QAH 
+    • Ends 10:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Mon 15 Jun 17:00</span>
+  </div>
+  <div class="title">SB</div>
+  <div class="meta">
+    QAH 
+    • Ends 18:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Mon 15 Jun 18:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 19:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 16 Jun 08:00</span>
+  </div>
+  <div class="title">PSTL - Meeting - HH</div>
+  <div class="meta">
+    QAH 
+    • Ends 09:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 16 Jun 12:00</span>
+  </div>
+  <div class="title">Meeting - CBG</div>
+  <div class="meta">
+    QAH 
+    • Ends 13:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 16 Jun 13:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 14:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 17 Jun 07:00</span>
+  </div>
+  <div class="title">Water team - MM</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 17 Jun 09:00</span>
+  </div>
+  <div class="title">ESWGRN</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 17 Jun 10:00</span>
+  </div>
+  <div class="title">JA IY</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 17 Jun 11:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 12:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Thu 18 Jun 08:00</span>
+  </div>
+  <div class="title">PSTL - Meeting - HH</div>
+  <div class="meta">
+    QAH 
+    • Ends 09:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Thu 18 Jun 13:00</span>
+  </div>
+  <div class="title">OP Ventilation - Safety - PA</div>
+  <div class="meta">
+    QAH 
+    • Ends 14:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Thu 18 Jun 14:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 15:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Fri 19 Jun 07:00</span>
+  </div>
+  <div class="title">Water Team</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Mon 22 Jun 14:00</span>
+  </div>
+  <div class="title">Training - MS</div>
+  <div class="meta">
+    QAH 
+    • Ends 15:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Mon 22 Jun 15:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 16:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 23 Jun 08:00</span>
+  </div>
+  <div class="title">PSTL - Meeting - HH</div>
+  <div class="meta">
+    QAH 
+    • Ends 09:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 23 Jun 11:00</span>
+  </div>
+  <div class="title">Soft FM - Meeting - TN JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 12:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 23 Jun 12:00</span>
+  </div>
+  <div class="title">Meeting - CBG</div>
+  <div class="meta">
+    QAH 
+    • Ends 13:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 23 Jun 13:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 14:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 24 Jun 07:00</span>
+  </div>
+  <div class="title">Water team - MM</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 24 Jun 09:00</span>
+  </div>
+  <div class="title">ESWGRN</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 24 Jun 10:00</span>
+  </div>
+  <div class="title">JA IY</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 24 Jun 11:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 12:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Thu 25 Jun 08:00</span>
+  </div>
+  <div class="title">PSTL - Meeting - HH</div>
+  <div class="meta">
+    QAH 
+    • Ends 09:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Thu 25 Jun 13:00</span>
+  </div>
+  <div class="title">OP Water - Safety - PA</div>
+  <div class="meta">
+    QAH 
+    • Ends 14:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Thu 25 Jun 14:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 15:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Thu 25 Jun 23:00</span>
+  </div>
+  <div class="title">Booking</div>
+  <div class="meta">
+    QAH 
+    • Ends 22:59
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Fri 26 Jun 07:00</span>
+  </div>
+  <div class="title">Water Team</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Fri 26 Jun 09:00</span>
+  </div>
+  <div class="title">Stuart</div>
+  <div class="meta">
+    QAH 
+    • Ends 10:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Fri 26 Jun 10:00</span>
+  </div>
+  <div class="title">Burnham</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Fri 26 Jun 17:00</span>
+  </div>
+  <div class="title">SB</div>
+  <div class="meta">
+    QAH 
+    • Ends 18:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Fri 26 Jun 18:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 19:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Mon 29 Jun 07:15</span>
+  </div>
+  <div class="title">New - Starters - CW</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:45
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 30 Jun 06:30</span>
+  </div>
+  <div class="title">Induction - HH - 5811</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 30 Jun 11:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 12:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 30 Jun 12:00</span>
+  </div>
+  <div class="title">Meeting - CBG</div>
+  <div class="meta">
+    QAH 
+    • Ends 13:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 30 Jun 13:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 14:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 01 Jul 07:00</span>
+  </div>
+  <div class="title">Water team - MM</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 01 Jul 09:00</span>
+  </div>
+  <div class="title">ESWGRN</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 01 Jul 10:00</span>
+  </div>
+  <div class="title">JA IY</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 01 Jul 11:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 12:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 01 Jul 13:00</span>
+  </div>
+  <div class="title">SMT</div>
+  <div class="meta">
+    QAH 
+    • Ends 14:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Thu 02 Jul 08:00</span>
+  </div>
+  <div class="title">PSTL - Meeting - HH</div>
+  <div class="meta">
+    QAH 
+    • Ends 09:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Fri 03 Jul 07:00</span>
+  </div>
+  <div class="title">Water Team</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Mon 06 Jul 07:15</span>
+  </div>
+  <div class="title">New - Starters - CW</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:45
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 07 Jul 06:30</span>
+  </div>
+  <div class="title">Induction - HH - 5811</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 07 Jul 11:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 12:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 07 Jul 12:00</span>
+  </div>
+  <div class="title">Meeting - CBG</div>
+  <div class="meta">
+    QAH 
+    • Ends 13:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 07 Jul 13:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 14:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 08 Jul 07:00</span>
+  </div>
+  <div class="title">Water team - MM</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 08 Jul 09:00</span>
+  </div>
+  <div class="title">ESWGRN</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 08 Jul 10:00</span>
+  </div>
+  <div class="title">JA IY</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 08 Jul 11:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 12:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Thu 09 Jul 08:00</span>
+  </div>
+  <div class="title">PSTL - Meeting - HH</div>
+  <div class="meta">
+    QAH 
+    • Ends 09:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Fri 10 Jul 07:00</span>
+  </div>
+  <div class="title">Water Team</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 14 Jul 08:00</span>
+  </div>
+  <div class="title">PSTL - Meeting - HH</div>
+  <div class="meta">
+    QAH 
+    • Ends 09:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 14 Jul 12:00</span>
+  </div>
+  <div class="title">Meeting - CBG</div>
+  <div class="meta">
+    QAH 
+    • Ends 13:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Tue 14 Jul 13:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 14:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 15 Jul 07:00</span>
+  </div>
+  <div class="title">Water team - MM</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 15 Jul 09:00</span>
+  </div>
+  <div class="title">ESWGRN</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 15 Jul 10:00</span>
+  </div>
+  <div class="title">JA IY</div>
+  <div class="meta">
+    QAH 
+    • Ends 11:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Wed 15 Jul 11:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 12:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Thu 16 Jul 08:00</span>
+  </div>
+  <div class="title">PSTL - Meeting - HH</div>
+  <div class="meta">
+    QAH 
+    • Ends 09:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Thu 16 Jul 09:00</span>
+  </div>
+  <div class="title">Interview - CG</div>
+  <div class="meta">
+    QAH 
+    • Ends 09:30
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Thu 16 Jul 13:00</span>
+  </div>
+  <div class="title">OP Ventilation - Safety - PA</div>
+  <div class="meta">
+    QAH 
+    • Ends 14:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Thu 16 Jul 14:00</span>
+  </div>
+  <div class="title">JN</div>
+  <div class="meta">
+    QAH 
+    • Ends 15:00
+  </div>
+  <div class="notes"></div>
+</div><div class="event">
+  <div class="event-top">
+    <span class="category">Notice</span>
+    <span class="time">Fri 17 Jul 07:00</span>
+  </div>
+  <div class="title">Water Team</div>
+  <div class="meta">
+    QAH 
+    • Ends 07:30
+  </div>
+  <div class="notes"></div>
+</div>
+      </main>
 
-        <div class="test-box">
-          <div class="test-row"><span class="label">Test:</span><span class="value">External HTML link</span></div>
-          <div class="test-row"><span class="label">Refresh:</span><span class="value">Every 5 minutes</span></div>
-          <div class="test-row"><span class="label">Touchscreen:</span><span class="value">Ready for form link/QR later</span></div>
-        </div>
-      </section>
+      <aside class="side">
+        <h2>Room Booking</h2>
+        <p>Use the touchscreen or scan the booking link when enabled.</p>
+        <p>This notice board is updated automatically from SharePoint.</p>
 
-      <aside class="card">
-        <h2>What to check</h2>
-        <ul>
-          <li>Does the page load without Microsoft sign-in?</li>
-          <li>Does the page render in the OnSignage/Bouygues Studio player?</li>
-          <li>Does the page refresh after publishing changes?</li>
-          <li>Does the touchscreen allow button/form interaction later?</li>
-        </ul>
-        <div class="touch">Touchscreen booking form can go here later</div>
+        <!-- Replace this with your Microsoft Form link later -->
+        <a class="button" href="#">Book a Room</a>
       </aside>
     </div>
 
     <div class="footer">
-      <div>QAH FM Notices | Proof of Concept</div>
-      <div id="clock">Loading time...</div>
+      <div>QAH FM Notices</div>
+      <div>Updated: 01 Jun 2026 10:10</div>
     </div>
   </div>
-
-  <script>
-    function tick() {
-      const now = new Date();
-      document.getElementById('clock').textContent = 'Loaded: ' + now.toLocaleString('en-GB', {
-        weekday: 'short', day: '2-digit', month: 'short', year: 'numeric',
-        hour: '2-digit', minute: '2-digit', second: '2-digit'
-      });
-    }
-    tick();
-    setInterval(tick, 1000);
-  </script>
 </body>
 </html>
